@@ -6,7 +6,9 @@ class LoginByPhone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Column(
+        children: [const FlutterLogo(size: 100), Container()],
+      ),
     );
   }
 }
