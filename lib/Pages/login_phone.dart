@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:scheduler/Utils/my_button.dart';
 import 'package:scheduler/Utils/text_box.dart';
-import 'package:scheduler/utils/my_button.dart';
+import 'package:scheduler/resources/firebase_auth.dart';
+import 'package:scheduler/utils/utils.dart';
 
+// import 'package:scheduler/utils/my_button.dart';
+// import '';
 class LoginByPhone extends StatefulWidget {
   const LoginByPhone({Key? key}) : super(key: key);
 
@@ -30,15 +32,20 @@ class _LoginByPhoneState extends State<LoginByPhone> {
               textInputType: TextInputType.phone,
             ),
             const SizedBox(height: 30),
-            // ignore: sized_box_for_whitespace
-            const MyButton(
-                title: "Click Here To Continus",
-                height: 50,
-                width: double.infinity,
-                backColor: Colors.red,
-                foreColor: Colors.white,
-                icon: Icon(Icons.add)),
-            const SizedBox(height: 200)
+            TextButton(
+              onPressed: () async {
+                String myData;
+                myData =
+                    await AuthMethods().singIn(phone: _phoneController.text);
+                if (myData == "succes") {
+                  getpage(context, "/home", replacedPage: true);
+                } else if (myData == '') {
+                  getpage(context, "/signup");
+                }
+              },
+              child: const Text("Continue"),
+            ),
+            const SizedBox(height: 80)
           ],
         ),
       ),
