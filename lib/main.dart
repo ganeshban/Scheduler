@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:scheduler/pages/home_page.dart';
 import 'package:scheduler/pages/login_phone.dart';
 import 'package:scheduler/pages/signup_details.dart';
-// import 'package:scheduler/Utils/constrain.dart';
 import 'package:scheduler/responsive/responsive_main.dart';
 import 'package:scheduler/responsive/responsive_mobile.dart';
 import 'package:scheduler/responsive/responsive_web.dart';
