@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:scheduler/Utils/text_box.dart';
 import 'package:scheduler/resources/firebase_auth.dart';
+import 'package:scheduler/utils/text_box.dart';
 // import 'package:scheduler/utils/mywidget.dart';
 import 'package:scheduler/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginByPhone extends StatefulWidget {
   const LoginByPhone({Key? key}) : super(key: key);
@@ -13,6 +14,14 @@ class LoginByPhone extends StatefulWidget {
 
 class _LoginByPhoneState extends State<LoginByPhone> {
   final TextEditingController _phoneController = TextEditingController();
+  final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+
+  Future<void> _setData() async {
+    final SharedPreferences pref = await _pref;
+    setState(() {
+      pref.setString("phone", _phoneController.text);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class _LoginByPhoneState extends State<LoginByPhone> {
             Flexible(child: Container(), flex: 3),
             const FlutterLogo(size: 100),
             const SizedBox(height: 50),
-            TextBox(
+            MyTextBox(
               txtController: _phoneController,
               hintText: "Enter Your Phone to continue",
               textInputType: TextInputType.phone,
@@ -39,6 +48,7 @@ class _LoginByPhoneState extends State<LoginByPhone> {
                 if (myData == "succes") {
                   getpage(context, "/home", replacedPage: true);
                 } else if (myData == 'new-user') {
+                  _setData();
                   getpage(context, "/signup");
                 }
               },

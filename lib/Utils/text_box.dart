@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TextBox extends StatelessWidget {
+class MyTextBox extends StatelessWidget {
   final TextEditingController txtController;
   final String hintText;
   final TextInputType textInputType;
   final bool isPassword;
+  final bool enabled;
 
-  const TextBox({
+  const MyTextBox({
     Key? key,
     required this.txtController,
     required this.hintText,
     required this.textInputType,
+    this.enabled = true,
     this.isPassword = false,
   }) : super(key: key);
 
@@ -22,6 +24,7 @@ class TextBox extends StatelessWidget {
       controller: txtController,
       obscureText: isPassword,
       keyboardType: textInputType,
+      enabled: enabled,
       decoration: InputDecoration(
           hintText: hintText,
           border: inputBorder,

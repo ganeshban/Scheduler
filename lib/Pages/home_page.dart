@@ -1,5 +1,4 @@
-// ignore_for_file: file_names
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,11 +9,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text("Home Screen"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Home Screen"),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: TextButton(
+                  onPressed: () async {
+                    await auth.signOut();
+                  },
+                  child: const Text("Log Out ")),
+            )
+          ],
+        ),
       ),
     );
   }

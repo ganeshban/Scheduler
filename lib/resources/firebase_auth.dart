@@ -8,13 +8,12 @@ class AuthMethods {
 
   Future<String> singUpUser({
     required String phone,
-    required String fName,
-    required String lName,
+    required String email,
+    required String username,
   }) async {
     String msg = "gets into some error.";
-    String email = "a$phone@gmail.com";
     try {
-      if (phone.isNotEmpty || fName.isNotEmpty || lName.isNotEmpty) {
+      if (phone.isNotEmpty || email.isNotEmpty || username.isNotEmpty) {
         // create user
         UserCredential _cr = await _auth.createUserWithEmailAndPassword(
             email: email, password: phone);
@@ -22,8 +21,7 @@ class AuthMethods {
         _firestore.collection("users").doc(_cr.user!.uid).set({
           'phone': phone,
           'emial': email,
-          'fName': fName,
-          'lName': lName,
+          'username': username,
           "userid": _cr.user!.uid,
         });
         msg = 'succes';
@@ -46,7 +44,7 @@ class AuthMethods {
         msg = "succes";
       } else {
         msg = "Enter Your Phone";
-      }
+      }           
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         //Code for signup
@@ -58,3 +56,6 @@ class AuthMethods {
     return msg;
   }
 }
+
+// Banganesh98@gmail.com
+// Ganesh Ban
