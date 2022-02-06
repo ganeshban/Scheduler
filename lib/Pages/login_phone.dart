@@ -50,6 +50,8 @@ class _LoginByPhoneState extends State<LoginByPhone> {
                 } else if (myData == 'new-user') {
                   _setData();
                   getpage(context, "/signup");
+                } else {
+                  showSnackBar(context, myData);
                 }
               },
               child: const Text("Continue"),

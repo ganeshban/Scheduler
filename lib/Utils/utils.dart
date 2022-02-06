@@ -24,9 +24,13 @@ Future<void> setLocalData({required String key, required String value}) async {
   await pref.setString(key, value);
 }
 
-Future<String?> getLocalData({required String key}) async {
+Future<String?> getLocalData(
+    {required String key, bool killAfterUsed = true}) async {
   final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
   SharedPreferences pref = await _pref;
   String data = pref.getString(key) ?? '';
+  if (killAfterUsed) {
+    await pref.remove(key);
+  }
   return data;
 }

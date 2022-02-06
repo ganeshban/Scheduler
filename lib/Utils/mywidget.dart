@@ -24,3 +24,12 @@ Widget myButton(
         color: Colors.blueAccent, shape: BoxShape.rectangle),
   );
 }
+
+class MyLoader extends StatelessWidget {
+  const MyLoader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircularProgressIndicator();
+  }
+}

@@ -59,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
               onPressed: () async {
                 String myData;
                 myData = await AuthMethods().singUpUser(
-                    phone: _userName.text,
+                    phone: _phone.text,
                     email: _email.text,
                     username: _userName.text);
                 if (myData == "succes") {
