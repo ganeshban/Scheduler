@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/resources/firebase_auth.dart';
 import 'package:scheduler/utils/text_box.dart';
-// import 'package:scheduler/utils/mywidget.dart';
 import 'package:scheduler/utils/utils.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,7 +14,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _userName = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _phone = TextEditingController();
-  String phone = '9840756006';
+  String phone = '';
 
   @override
   void initState() {
@@ -28,7 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 28),
-        color: Colors.white24,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

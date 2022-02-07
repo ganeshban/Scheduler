@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/resources/firebase_auth.dart';
 import 'package:scheduler/utils/text_box.dart';
-// import 'package:scheduler/utils/mywidget.dart';
 import 'package:scheduler/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,6 +37,9 @@ class _LoginByPhoneState extends State<LoginByPhone> {
               txtController: _phoneController,
               hintText: "Enter Your Phone to continue",
               textInputType: TextInputType.phone,
+              label: "Phone",
+              icon: Icons.phone_iphone,
+              hintList: const ['Phone', "Contact"],
             ),
             const SizedBox(height: 30),
             TextButton(
@@ -56,7 +58,6 @@ class _LoginByPhoneState extends State<LoginByPhone> {
               },
               child: const Text("Continue"),
             ),
-            // myButton(title: "title", width: 150, icon: Icons.person),
             const SizedBox(height: 80)
           ],
         ),

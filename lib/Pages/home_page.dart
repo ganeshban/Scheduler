@@ -1,6 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:scheduler/modals/user.dart';
+import 'package:scheduler/providers/user_providers.dart';
+import 'package:scheduler/utils/constrain.dart';
 import 'package:scheduler/utils/utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,31 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  String userName = '';
-  @override
-  void initState() {
-    getUserName();
-    super.initState();
-  }
-
-  void getUserName() async {
-    DocumentSnapshot _snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .get();
-    setState(() {
-      userName = (_snap.data() as Map<String, dynamic>)['username'];
-    });
-  }
+  // PageController
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
+    ModelUser modelUser = Provider.of<UserProviders>(context).getUser;
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(userName),
+            Text(modelUser.username),
             Container(
               padding: const EdgeInsets.all(16),
               child: TextButton(
@@ -49,6 +40,34 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: page,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        onTap: (value) {
+          setState(() {
+            page = value;
+          });
+        },
+        items: [
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: "Store",
+            backgroundColor: primaryColor,
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: "Employee",
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: modelUser.username,
+          ),
+        ],
       ),
     );
   }
