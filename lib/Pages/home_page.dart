@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
               child: TextButton(
                   onPressed: () async {
                     await auth.signOut().then((_) {
-                      getpage(context, "/login", replacedPage: true);
+                      getpage(context, logInPage, replacedPage: true);
                     });
                   },
                   child: const Text("Log Out ")),

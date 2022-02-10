@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyTextBox extends StatelessWidget {
-  final TextEditingController txtController;
-  final String hintText;
+  final TextEditingController? txtController;
+  final String? hintText;
   final TextInputType textInputType;
   final bool isPassword;
   final bool enabled;
@@ -12,11 +12,15 @@ class MyTextBox extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final VoidCallback? onEditingComplete;
+  final VoidCallback? onTap;
 
   const MyTextBox({
     Key? key,
-    required this.txtController,
-    required this.hintText,
+    this.txtController,
+    this.hintText,
     this.textInputType = TextInputType.text,
     this.label,
     this.enabled = true,
@@ -26,6 +30,10 @@ class MyTextBox extends StatelessWidget {
     this.focusNode,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
+    this.onChanged,
+    this.onSubmitted,
+    this.onEditingComplete,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -33,6 +41,10 @@ class MyTextBox extends StatelessWidget {
     final inputBorder =
         OutlineInputBorder(borderSide: Divider.createBorderSide(context));
     return TextField(
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
+      onEditingComplete: onEditingComplete,
+      onTap: onTap,
       controller: txtController,
       obscureText: isPassword,
       keyboardType: textInputType,

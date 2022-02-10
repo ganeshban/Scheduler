@@ -19,32 +19,42 @@ class AuthMethods {
     required String email,
     required String username,
   }) async {
-    String msg = "gets into some error.";
+    String msg = "";
     try {
-      if (phone.isNotEmpty && email.isNotEmpty && username.isNotEmpty) {
-        if (!username.contains(' ')) {
-          return 'Please enter first Name and Last Name';
-        }
+      //User Name must contain First Name and Last Name
+      if (!username.contains(' ') && username.length < 3) {
+        msg = 'Please enter first Name and Last Name';
+      }
 
-        if (email.length > 5 &&
-            email.toUpperCase().contains(".COM") &&
-            email.contains('@')) {
-          // create user
-          UserCredential _cr = await _auth.createUserWithEmailAndPassword(
-              email: 'abc$phone@gmail.com', password: phone);
-          ModelUser _user = ModelUser(
-              phone: phone,
-              username: username,
-              email: email,
-              userid: _cr.user!.uid);
-          // Storing users other data
-          _firestore.collection("users").doc(_cr.user!.uid).set(_user.toJson());
-          msg = 'succes';
-        } else {
-          msg = 'Email format is bad.';
-        }
-      } else {
+      //Email format must be valid
+      if (!(email.length > 5 &&
+          email.toUpperCase().contains(".COM") &&
+          email.contains('@'))) {
+        msg = 'Email format is bad.';
+      }
+
+      //All Fields must be filled
+      if (email.isEmpty && username.isEmpty) {
         msg = 'All Fields are required';
+      }
+
+      //Phone NO Must be Present
+      if (phone.isEmpty) {
+        msg = "go-back";
+      }
+
+      // create user
+      if (msg.isEmpty) {
+        UserCredential _cr = await _auth.createUserWithEmailAndPassword(
+            email: 'abc$phone@gmail.com', password: phone);
+        ModelUser _user = ModelUser(
+            phone: phone,
+            username: username,
+            email: email,
+            userid: _cr.user!.uid);
+        // Storing users other data
+        _firestore.collection("users").doc(_cr.user!.uid).set(_user.toJson());
+        msg = 'succes';
       }
     } catch (e) {
       msg = e.toString();

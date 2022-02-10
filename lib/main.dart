@@ -10,7 +10,7 @@ import 'package:scheduler/providers/user_providers.dart';
 import 'package:scheduler/responsive/responsive_main.dart';
 import 'package:scheduler/responsive/responsive_mobile.dart';
 import 'package:scheduler/responsive/responsive_web.dart';
-
+import 'package:scheduler/utils/constrain.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
         title: 'Schedule For you',
         theme: ThemeData.dark(), //.copyWith(primaryColor: primaryColor),
         routes: <String, WidgetBuilder>{
-          '/login': (BuildContext context) => const LoginByPhone(),
-          '/signup': (BuildContext context) => const SignUpPage(),
-          '/home': (BuildContext context) => const HomePage(),
+          logInPage: (BuildContext context) => const LoginByPhone(),
+          signUpPage: (BuildContext context) => const SignUpPage(),
+          homePage: (BuildContext context) => const HomePage(),
           '/LoadUser': (BuildContext context) => const LoginByPhone(),
           '/searchPage': (BuildContext context) => const LoginByPhone(),
           '/settingPage': (BuildContext context) => const LoginByPhone(),
